@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB51</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB1</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Latihan Kosakata</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .card {
+    background: white;
+    padding: 30px;
+    width: 400px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  input {
+    width: 90%;
+    padding: 8px;
+    margin-top: 15px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+  }
+  .result {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .wrong { color: red; }
+  .correct { color: green; }
+  ol { text-align:left; max-height:400px; overflow:auto; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2 id="question"></h2>
+  <input type="text" id="answerInput" placeholder="Tulis jawaban di sini">
+  <br>
+  <button id="nextBtn">Selanjutnya</button>
+</div>
+
+<script>
+let questions = [
+{ soal: "숙박 서비스", jawaban: "layanan penginapan" },
+{ soal: "전등", jawaban: "lampu" },
+{ soal: "하우스키핑", jawaban: "pekerjaan rumah (hotel)" },
+{ soal: "객실 전화기", jawaban: "telepon kamar tamu" },
+{ soal: "카트", jawaban: "kereta dorong" },
+{ soal: "미니바", jawaban: "mini bar" },
+{ soal: "살짝", jawaban: "sedikit, agak" },
+{ soal: "화장대", jawaban: "meja rias" },
+{ soal: "당기다", jawaban: "menarik" },
+{ soal: "객실 용품", jawaban: "fasilitas kamar" },
+{ soal: "밀다", jawaban: "mendorong" },
+{ soal: "리모컨", jawaban: "remote control" },
+{ soal: "객실 정비", jawaban: "pemeliharaan kamar" },
+{ soal: "헤어드라이어", jawaban: "pengering rambut" },
+{ soal: "관광지", jawaban: "tempat wisata" },
+{ soal: "슬리퍼", jawaban: "sandal kamar" },
+{ soal: "비품실 / 린넨실", jawaban: "ruang perlengkapan / linen" },
+{ soal: "옷걸이", jawaban: "gantungan baju" },
+{ soal: "목욕가운", jawaban: "mantel mandi" },
+{ soal: "스낵", jawaban: "makanan ringan" },
+{ soal: "시트", jawaban: "sprei" },
+{ soal: "DND 카드", jawaban: "kartu jangan diganggu" },
+{ soal: "수건", jawaban: "handuk" },
+{ soal: "메이드 보고서", jawaban: "laporan petugas kamar" },
+{ soal: "청소도구함", jawaban: "kotak alat pembersih" },
+{ soal: "메이크업 카드", jawaban: "kartu riasan" },
+{ soal: "방향제", jawaban: "pengharum ruangan" },
+{ soal: "가져다 놓다", jawaban: "membawa lalu menaruh" },
+{ soal: "마른걸레", jawaban: "kain pel kering" },
+{ soal: "반말", jawaban: "bahasa tidak sopan" },
+{ soal: "대걸레", jawaban: "pel basah" },
+{ soal: "함부로", jawaban: "sembarangan" },
+{ soal: "플러그를 꽂다", jawaban: "menancapkan colokan" },
+{ soal: "오해하다", jawaban: "salah paham" },
+{ soal: "플러그를 빼다", jawaban: "mencabut colokan" },
+{ soal: "책자", jawaban: "buklet" },
+{ soal: "마스터키를 대다", jawaban: "menempelkan kunci utama" },
+{ soal: "화해하다", jawaban: "berdamai" },
+{ soal: "마스터키를 떼다", jawaban: "melepas kunci utama" },
+{ soal: "잡지", jawaban: "majalah" },
+{ soal: "손잡이", jawaban: "pegangan" },
+{ soal: "문화 유산", jawaban: "warisan budaya" },
+{ soal: "생수", jawaban: "air minum kemasan" },
+{ soal: "지닌 매력적인", jawaban: "menarik, memiliki daya tarik" },
+{ soal: "수거함", jawaban: "kotak pengumpulan" },
+{ soal: "경관", jawaban: "pemandangan" },
+{ soal: "소모품", jawaban: "barang habis pakai" },
+{ soal: "유행하다", jawaban: "menjadi populer" },
+{ soal: "어메니티", jawaban: "amenitas" },
+{ soal: "이전인", jawaban: "orang sebelumnya" },
+{ soal: "바디워시", jawaban: "sabun cair badan" },
+{ soal: "신라의 역사", jawaban: "sejarah Silla" },
+{ soal: "린스", jawaban: "kondisioner" },
+{ soal: "산재하다", jawaban: "berserakan" },
+{ soal: "샴푸", jawaban: "sampo" },
+{ soal: "불국사", jawaban: "kuil Bulguksa" },
+{ soal: "비누", jawaban: "sabun" },
+{ soal: "석굴암", jawaban: "gua Seokguram" },
+{ soal: "치약", jawaban: "pasta gigi" },
+{ soal: "사찰", jawaban: "kuil, candi" },
+{ soal: "칫솔", jawaban: "sikat gigi" },
+{ soal: "절", jawaban: "kuil" },
+{ soal: "전화선", jawaban: "saluran telepon" },
+{ soal: "안동", jawaban: "kota Andong" },
+{ soal: "객실", jawaban: "kamar tamu" },
+{ soal: "건축물", jawaban: "bangunan, arsitektur" },
+{ soal: "전동식", jawaban: "bertenaga listrik" },
+{ soal: "유교문화", jawaban: "budaya Konfusianisme" },
+{ soal: "커튼을 치다", jawaban: "menutup tirai" },
+{ soal: "하회마을", jawaban: "desa Hahoe" },
+{ soal: "꺼내다", jawaban: "mengambil keluar" },
+{ soal: "도산서원", jawaban: "Dosan Seowon" },
+{ soal: "연휴", jawaban: "libur panjang" },
+{ soal: "전통 가옥", jawaban: "rumah adat" },
+{ soal: "신경 쓰다", jawaban: "memperhatikan" },
+{ soal: "선사하다", jawaban: "memberikan (hadiah)" },
+{ soal: "실장님", jawaban: "manajer" },
+{ soal: "어우러지다", jawaban: "berpadu, berbaur" },
+{ soal: "웅장하다", jawaban: "megah" },
+{ soal: "작동하다", jawaban: "beroperasi" },
+{ soal: "수도", jawaban: "ibu kota" },
+{ soal: "버튼을 누르다", jawaban: "menekan tombol" },
+{ soal: "공존하다", jawaban: "hidup berdampingan" },
+{ soal: "스위치를 켜다", jawaban: "menyalakan saklar" },
+{ soal: "인접하다", jawaban: "berdekatan" },
+{ soal: "시트를 교체하다", jawaban: "mengganti sprei" },
+{ soal: "맛집 여행", jawaban: "wisata kuliner" },
+{ soal: "침대보", jawaban: "sprei tempat tidur" },
+{ soal: "흔적", jawaban: "bekas, jejak" },
+{ soal: "얼룩", jawaban: "noda" },
+{ soal: "골목투어", jawaban: "tur lorong" },
+{ soal: "이불보", jawaban: "sarung selimut" },
+{ soal: "쓰레기를 줍다", jawaban: "memungut sampah" }
+];
+
+// Acak soal
+questions = questions.sort(() => Math.random() - 0.5);
+
+let index = 0;
+let score = 0;
+let userAnswers = [];
+
+const questionEl = document.getElementById("question");
+const answerInput = document.getElementById("answerInput");
+const nextBtn = document.getElementById("nextBtn");
+const card = document.querySelector(".card");
+
+function showQuestion() {
+  questionEl.textContent = "Soal " + (index + 1) + ": " + questions[index].soal;
+  answerInput.value = "";
+  answerInput.focus();
+}
+
+nextBtn.addEventListener("click", () => {
+  const userAnswer = answerInput.value.trim().toLowerCase();
+  userAnswers[index] = userAnswer; // simpan jawaban sesuai index
+
+  if (userAnswer === questions[index].jawaban) {
+    score++;
+  }
+
+  index++;
+  if (index < questions.length) {
+    showQuestion();
+  } else {
+    showResult();
+  }
+});
+
+function showResult() {
+  let answerList = "";
+  questions.forEach((q, i) => {
+    if (userAnswers[i] === q.jawaban) {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span></li>`;
+    } else {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span><br>
+                     Jawaban kamu: <span class="wrong">${userAnswers[i] || "(kosong)"}</span></li>`;
+    }
+  });
+
+  card.innerHTML = `
+    <h2>Hasil</h2>
+    <p class="result">Nilai: ${score} / ${questions.length}</p>
+    <hr>
+    <p>Kunci Jawaban:</p>
+    <ol>${answerList}</ol>
+  `;
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
